@@ -1,0 +1,70 @@
+\documentclass[12pt,a5paper]{scrreprt}
+%\documentclass{article}		
+\usepackage{polyglossia}   %% загружает пакет многоязыковой вёрстки
+\setdefaultlanguage[spelling=modern]{russian}  %% устанавливает главный язык документа
+\setotherlanguage{english}
+
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+
+\sloppy
+
+%%\usepackage[utf8]{inputenc}
+\usepackage{extsizes}
+\usepackage[left=1cm,right=1cm,top=1.5cm,bottom=1.5cm]{geometry}
+
+\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}  %% свойства шрифтов по умолчанию
+\setmainfont{DejaVu Serif} %% задаёт основной шрифт документа
+\setsansfont{DejaVu Sans}                   %% задаёт шрифт без засечек
+\setmonofont{DejaVu Sans Mono}              %% задаёт моноширинный шрифт
+
+
+\lstset{
+    backgroundcolor = \color{lightgray},
+    xleftmargin = 2cm,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    basicstyle=\scriptsize,
+    numbersep=5pt,
+    breaklines=true,
+    keywordstyle=\itshape\color{blue},
+    stringstyle=\itshape\color{green},
+    commentstyle=\color{gray},
+    rulecolor=\color{black},
+    framexleftmargin = 1em,
+    frameround=tttt,
+    frame=TRBL,
+    breaklines=true,
+    emphstyle=\color{black},
+    keepspaces=true,
+    extendedchars=\true,
+    inputencoding=utf8,
+    escapechar={|}
+}
+
+
+\usepackage {hyperref}
+
+$if(title)$
+\title{$title$}
+$endif$
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+\begin{document}
+$if(title)$
+\maketitle
+$endif$
+\tableofcontents
+$body$
+\end{document}
