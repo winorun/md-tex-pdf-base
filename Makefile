@@ -8,7 +8,7 @@ build:./.build/main.pdf
 	@xelatex -output-directory=.build .build/include.tex > /dev/null
 
 $(input):$(file) mkbuild
-	@pandoc $(file) --template=.template.tex -o ./.build/$(input) --listing --no-tex-ligatures --chapter 
+	@pandoc $(file) metadata.yaml --template=.template.tex -o ./.build/$(input) --listing --no-tex-ligatures --chapter 
 
 
 mkbuild:
