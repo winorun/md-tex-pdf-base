@@ -1,4 +1,4 @@
-file=notebook.md
+file=example.md
 input=include.tex
 
 build:./.build/main.pdf
@@ -8,7 +8,7 @@ build:./.build/main.pdf
 	@xelatex -output-directory=.build .build/include.tex > /dev/null
 
 $(input):$(file) mkbuild
-	@pandoc $(file) metadata.yaml --template=.template.tex -o ./.build/$(input) --listing --no-tex-ligatures --chapter 
+	@pandoc $(file) config.yaml --template=.template.tex -o ./.build/$(input) --listing --no-tex-ligatures --chapter 
 
 
 mkbuild:
