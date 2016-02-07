@@ -1,16 +1,32 @@
-file=example.md
-input=include.tex
+.PHONY: all clean build
+VPATH = ./.build
 
-build:./.build/main.pdf
-	@cp ./.build/include.pdf ./notebook.pdf
-./.build/main.pdf:$(input)
-	xelatex -output-directory=.build .build/include.tex 
-	@xelatex -output-directory=.build .build/include.tex > /dev/null
+input=include
+# Получаем имена файлов markdown без README.md
+files := $(filter-out README.md,$(wildcard *.md))
+# Получаем имя первого файла без суфикса
+output:=$(word 1,$(basename $(files)))
 
-$(input):$(file) mkbuild
-	@pandoc $(file) config.yaml --template=.template.tex -o ./.build/$(input) --listing --no-tex-ligatures --chapter 
+#Определяем тип документа например scrartcl
+type := $(word 2,$(shell cat config.yaml | grep -i type))
 
+#Если тип scrreprt или scrbook добавляем при компиляции --chapter
+#Можно добавить и другие типы которые начинают нумерацию с \chapter
+flag := $(if $(filter-out scrreprt scrbook,$(type)),,--chapter)
 
-mkbuild:
+all: $(input).pdf 
+	@cp .build/$< ./$(output).pdf
+
+$(input).pdf : $(input).tex
+	xelatex -output-directory=.build $< 
+	@xelatex -output-directory=.build $< > /dev/null
+
+$(input).tex: $(files) .build
+	@echo "Собираем" $@
+	@pandoc $(files) config.yaml --template=.template.tex -o ./.build/$@ --listing --no-tex-ligatures $(flag) 
+
+.build:
 	@rm -f -d -r  ./.build
 	@mkdir ./.build
+
+

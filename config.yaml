@@ -5,5 +5,5 @@ subtitle: Подзаголовок
 author: автор
 date: дата если нужно, если нет можно убрать
 size: a5paper
-type: scrreprt
+type: scrbook
 ---
