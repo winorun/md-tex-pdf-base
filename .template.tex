@@ -1,8 +1,19 @@
-\documentclass[12pt,$if(size)$ $size$ $endif$]{scrreprt}
+\documentclass[12pt,$if(size)$ $size$ $endif$]{$if(type)$$type$$endif$}
 %\documentclass{article}		
 \usepackage{polyglossia}   %% загружает пакет многоязыковой вёрстки
 \setdefaultlanguage[spelling=modern]{russian}  %% устанавливает главный язык документа
 \setotherlanguage{english}
+
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\graphicspath{{img/}}
 
 \usepackage{xcolor}
 \usepackage{listings}
@@ -24,7 +35,7 @@
 \usepackage{ulem}
 
 \lstset{
-    backgroundcolor = \color{lightgray},
+    %~ backgroundcolor = \color{lightgray},
     xleftmargin = 2cm,
     numberstyle=\scriptsize,
     stepnumber=1,
@@ -32,12 +43,12 @@
     numbersep=5pt,
     breaklines=true,
     keywordstyle=\itshape\color{blue},
-    stringstyle=\itshape\color{green},
+    stringstyle=\itshape\color{teal},
     commentstyle=\color{gray},
     rulecolor=\color{black},
     framexleftmargin = 1em,
-    frameround=tttt,
-    frame=TRBL,
+    %~ frameround=tttt,
+    frame=tb,
     breaklines=true,
     emphstyle=\color{black},
     keepspaces=true,
