@@ -6,7 +6,7 @@ input=include
 files := $(filter-out README.md,$(wildcard *.md))
 # Получаем имя первого файла без суфикса
 output:=$(word 1,$(basename $(files)))
-
+#~ --metadata=size:a4paper - для pandoc
 #Определяем тип документа например scrartcl
 type := $(word 2,$(shell cat config.yaml | grep -i type))
 
@@ -14,16 +14,14 @@ type := $(word 2,$(shell cat config.yaml | grep -i type))
 #Можно добавить и другие типы которые начинают нумерацию с \chapter
 flag := $(if $(filter-out scrreprt scrbook,$(type)),,--chapter)
 
-all: $(input).pdf 
-	@cp .build/$< ./$(output).pdf
+all: $(input).tex 
+	@cp .build/$(input).pdf ./$(output).pdf
 
-$(input).pdf : $(input).tex
-	xelatex -output-directory=.build $< 
-	@xelatex -output-directory=.build $< > /dev/null
-
-$(input).tex: $(files) .build
+$(input).tex: $(files) .build config.yaml
 	@echo "Собираем" $@
-	@pandoc $(files) config.yaml --template=.template.tex -o ./.build/$@ --listing --no-tex-ligatures $(flag) 
+	pandoc $(files) config.yaml --template=.template.tex -o ./.build/$@ --listing --no-tex-ligatures $(flag)
+	xelatex -output-directory=.build $(input).tex
+	@xelatex -output-directory=.build $(input).tex > /dev/null 
 
 .build:
 	@rm -f -d -r  ./.build
